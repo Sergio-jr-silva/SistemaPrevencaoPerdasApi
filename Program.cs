@@ -24,6 +24,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapGet("/teste-conexao", async (AppDbContext db) =>
+{
+    var existeTabela = await db.Database.CanConnectAsync();
+    return Results.Ok(existeTabela ? "Conexão OK!" : "Erro na conexão");
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
